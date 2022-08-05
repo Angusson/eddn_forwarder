@@ -8,3 +8,8 @@ The local applications just connect to the local port of the forwarder.
 ## Usage
 The application is started with the command ./start.sh. Local applications
 connect to tcp://localhost:9501 instead of tcp://eddn.edcd.io:9500.
+
+The application can be startet at boot via crontab:
+```
+@reboot cd /home/angus/00_work/projects/ED/eddn_forwarder; /usr/bin/bash ./start.sh
+```
