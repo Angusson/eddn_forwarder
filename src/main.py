@@ -1,9 +1,15 @@
 import zmq
+import dotenv
+import os
 
-EDDN = "tcp://eddn.edcd.io:9500"
+dotenv.load_dotenv()
+EDDN = os.environ.get("EDDN", "tcp://eddn.edcd.io:9500")
+OUTPORT = os.environ.get("OUTPORT", 9501)
+
 __timeoutEDDN = 60000
 
 def main():
+    print(f"Starting EDDN forwarder from {EDDN} to outport {OUTPORT}")
 
     try:
         context = zmq.Context()
@@ -15,7 +21,7 @@ def main():
 
         # Socket for outbound traffic
         backend = context.socket(zmq.PUB)
-        backend.bind("tcp://*:9501")
+        backend.bind(f"tcp://*:{OUTPORT}")
 
         while True:
             frontend.connect(EDDN)
@@ -28,6 +34,7 @@ def main():
                     break
                 
                 backend.send(msg)
+                print(msg)
 
     except Exception as e:
         print(e)
