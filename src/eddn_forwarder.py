@@ -34,7 +34,6 @@ def main():
                     break
                 
                 backend.send(msg)
-                print(msg)
 
     except Exception as e:
         print(e)

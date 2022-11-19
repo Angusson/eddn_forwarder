@@ -1,0 +1,9 @@
+version: "3"
+services:
+  eddn_forwarder:
+    build: .
+    env_file:
+      - .env
+    ports:
+      - "9501:9501"
+    restart: unless-stopped
